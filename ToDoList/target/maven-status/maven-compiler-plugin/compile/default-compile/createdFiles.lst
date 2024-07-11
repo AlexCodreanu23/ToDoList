@@ -1,1 +1,7 @@
+com\example\ToDoList\TaskController.class
+com\example\ToDoList\TaskRepository.class
+com\example\ToDoList\TaskService.class
+com\example\ToDoList\Task.class
+com\example\ToDoList\DataLoader.class
+com\example\ToDoList\ToDoListApplication.class
 com\example\ToDoList\HelloController.class
