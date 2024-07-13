@@ -19,7 +19,20 @@ function App() {
     fetchTasks();
   }, []);
 
+  const handleDeleteTask = async (id) =>{
+    try{
+      await axios.delete(`http://localhost:3001/api/task/${id}`);
+      setTasks(tasks.filter(task => task.id !== id));
+    }catch(error){
+      console.error('Error deleting task',error);
+    }
+  }
+
   const handleAddTask = async () => {
+    if (task.trim().length === 0) {
+      console.log("Please add a valid task");
+      return; 
+    }
     try {
       const response = await axios.post('http://localhost:3001/api/task', {
         "title": task,
@@ -57,8 +70,12 @@ function App() {
           </div>
           <div>
             <ul>
-              {tasks.map((task, index) => (
-                <li key={index}>{task.title}</li>
+              {tasks.map((task) => (
+                <li key={task.id} style = {{marginBottom: '5%'}}>
+                  <div style = {{display: 'flex', justifyContent: 'space-between', alignItems: 'center', border: '1px solid black',borderRadius: '0.5em', padding: '3%'}}>{task.title}
+                    <button className = 'buton2' onClick={() =>handleDeleteTask(task.id)}>Delete Task</button>
+                  </div>
+              </li>
               ))}
             </ul>
           </div>
