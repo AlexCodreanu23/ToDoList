@@ -1,10 +1,11 @@
 const express = require('express');
 const cors = require('cors');
+const axios = require('axios');
+
 const app = express();
-
-app.use(cors()); 
-
+app.use(cors());
 app.use(express.json());
+
 
 app.post('/api/task', async (req, res) => {
   try {
@@ -13,8 +14,8 @@ app.post('/api/task', async (req, res) => {
       completed: req.body.completed
     };
 
-    tasks.push(newTask);
-    res.status(201).json(newTask); 
+    const response = await axios.post(`http://localhost:8080/api/task`, newTask);
+    res.status(201).json(response.data);
   } catch (error) {
     res.status(500).json({ error: 'Something went wrong' });
   }
@@ -22,13 +23,23 @@ app.post('/api/task', async (req, res) => {
 
 app.get('/api/task', async (req, res) => {
   try {
-    res.status(200).json(tasks);
+    const response = await axios.get(`http://localhost:8080/api/task`);
+    res.status(200).json(response.data);
   } catch (error) {
     res.status(500).json({ error: 'Something went wrong' });
   }
 });
 
-const tasks = [];
+app.delete('/api/task/:id', async(req,res) =>{
+  try{
+    const {id} = req.params;
+    const response = await axios.delete(`http://localhost:8080/api/task/${id}`);
+    res.status(200).json(response.data);
+  }
+  catch(error){
+      res.status(500).json({error: 'Something went wrong'});
+  }
+});
 
 app.listen(3001, () => {
   console.log('Server is running on port 3001');
