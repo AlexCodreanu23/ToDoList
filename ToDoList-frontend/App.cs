@@ -28,7 +28,7 @@ body {
 }
 
 .box1 {
-  background-color: #1f0c66;
+  background-color: yellow;
   margin: 20px auto; 
   max-width: 600px; 
   display: flex;
@@ -65,6 +65,12 @@ textarea {
   color: white;
   cursor: pointer;
   margin: 5%;
+}
+
+.buton2{
+  background-color: #411ec2;
+  padding: 0.4em;
+  border-radius: 0.4em;
 }
 
 .App-header {
